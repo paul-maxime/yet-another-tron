@@ -42,9 +42,11 @@ function clearFromMap(player) {
 }
 
 function spawnOnMap(player) {
-  player.x = Math.floor(Math.random() * (MAP_WIDTH - 40)) + 20;
-  player.y = Math.floor(Math.random() * (MAP_HEIGHT - 30)) + 15;
+  player.x = Math.floor(Math.random() * (MAP_WIDTH - 20)) + 10;
+  player.y = Math.floor(Math.random() * (MAP_HEIGHT - 20)) + 10;
   player.direction = Math.floor(Math.random() * 4);
+
+  map[player.x][player.y] = player.id;
 
   sendTo(player, {
     type: "spawn",
