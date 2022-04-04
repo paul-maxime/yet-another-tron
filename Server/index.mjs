@@ -106,6 +106,7 @@ socketServer.on("connection", (player) => {
 httpServer.listen(8080, () => console.log("Listening on port 8080"));
 
 setInterval(() => {
+  let collisions = [];
   for (const player of players) {
     if (player.direction === 0) player.y -= 1;
     if (player.direction === 1) player.y += 1;
@@ -113,7 +114,15 @@ setInterval(() => {
     if (player.direction === 3) player.x += 1;
 
     if (player.x < 0 || player.y < 0 || player.x >= MAP_WIDTH || player.y >= MAP_HEIGHT || map[player.x][player.y] > 0) {
-      respawn(player);
+      if (collisions.indexOf(player) < 0) {
+        collisions.push(player);
+      }
+      const playersOnSameCell = players.filter(p => p.x === player.x && p.y === player.y);
+      for (const otherPlayer of playersOnSameCell) {
+        if (collisions.indexOf(otherPlayer) < 0) {
+          collisions.push(otherPlayer);
+        }
+      }
     } else {
       map[player.x][player.y] = player.id;
       sendToAll({
@@ -123,5 +132,8 @@ setInterval(() => {
         y: player.y,
       });
     }
+  }
+  for (const player of collisions) {
+    respawn(player);
   }
 }, 150);
