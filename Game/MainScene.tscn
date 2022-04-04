@@ -1,8 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://OnMyWay.ogg" type="AudioStream" id=1]
 [ext_resource path="res://MainScript.gd" type="Script" id=2]
+[ext_resource path="res://Boom.wav" type="AudioStream" id=3]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Squares" type="Node2D" parent="."]
+
+[node name="BoomPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -6.0
+
+[node name="Tween" type="Tween" parent="MusicPlayer"]
