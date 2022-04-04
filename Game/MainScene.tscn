@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://MainScript.gd" type="Script" id=2]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Squares" type="Node2D" parent="."]
